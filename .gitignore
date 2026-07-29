@@ -5,3 +5,20 @@
 # React Router
 /.react-router/
 /build/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# React
+/node_modules/
+/.react-router/
+/build/
+
+# Environment
+.env
+
+# OS
+.DS_Store
