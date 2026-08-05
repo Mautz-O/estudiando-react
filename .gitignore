@@ -1,10 +1,8 @@
 .DS_Store
 .env
-/node_modules/
+node_modules/
 
-# React Router
-/.react-router/
-/build/
+
 
 # Python
 __pycache__/
@@ -12,13 +10,8 @@ __pycache__/
 .venv/
 .pytest_cache/
 
+
 # React
-/node_modules/
-/.react-router/
-/build/
+.react-router/
+build/
 
-# Environment
-.env
-
-# OS
-.DS_Store

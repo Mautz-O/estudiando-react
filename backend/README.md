@@ -13,7 +13,7 @@ pip install fastapi uvicorn
 
 Ejecutar en desarrollo
 ```bash
-uvicorn modules.hello:app --reload --app-dir backend --host 127.0.0.1 --port 8000
+uvicorn base_de_datos.IA_services:app --reload
 ```
 
 Endpoint principal
