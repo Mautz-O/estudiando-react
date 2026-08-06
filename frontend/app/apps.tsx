@@ -6,17 +6,25 @@ function Mensaje() {
 
 
     async function cargarUsuario() {
-        const response = await fetch("http://127.0.0.1:8000/hello");
+        const response = await fetch("http://127.0.0.1:8000/openrouter", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                message: "Hello, OpenRouter!"
+            })
+        });
         const data = await response.json();
-        setMensaje(data.message);
+        setMensaje(data.answer);
         console.log(data);
 
 
 
 
 
-        console.log();
-        cargarUsuario();
+
+
     }
 
     return (
