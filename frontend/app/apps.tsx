@@ -3,6 +3,7 @@ import { useState } from "react";
 
 function Mensaje() {
     const [Mensaje, setMensaje] = useState("");
+    const [mensajeUsuario, setMensajeUsuario] = useState("");
 
 
     async function cargarUsuario() {
