@@ -7,18 +7,34 @@
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  margin: 0;
+  min-height: 100%;
+  background: linear-gradient(135deg, #a78bfa 0%, #60a5fa 50%, #5eead4 100%);
+  color: #1f2937;
+  font-family: "Inter", sans-serif;
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
 }
 
+body {
+  min-height: 100vh;
+}
+
 .page-title {
   text-align: center;
   width: 100%;
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin: 1.5rem 0;
-  line-height: 1.2;
+  font-size: clamp(2.3rem, 5vw, 4rem);
+  font-weight: 800;
+  margin: 1.5rem 0 1rem;
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+  background: linear-gradient(135deg, #facc15 0%, #fb7185 20%, #4616b6 50%, #07d1f0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 10px 28px rgba(139, 92, 246, 0.35);
+  filter: drop-shadow(0 6px 14px rgba(255, 255, 255, 0.25));
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.35), 0 12px 30px rgba(79, 70, 229, 0.28);
 }

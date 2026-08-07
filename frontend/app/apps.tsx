@@ -39,7 +39,23 @@ function Mensaje() {
             gap: "12px"
         }}>
             <p>{Mensaje}</p>
-            <button onClick={cargarUsuario}>click</button>
+            <button
+                onClick={cargarUsuario}
+                style={{
+                    background: "linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "999px",
+                    padding: "0.9rem 1.8rem",
+                    fontSize: "1.05rem",
+                    fontWeight: 700,
+                    cursor: "pointer",
+                    boxShadow: "0 10px 25px rgba(79, 70, 229, 0.35)",
+                    transition: "transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease",
+                }}
+            >
+                click
+            </button>
         </div>
     )
 
