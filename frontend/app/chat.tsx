@@ -8,9 +8,20 @@ type Mensaje = {
 function Chat() {
     const [Mensajes, setMensajes] = useState<Mensaje[]>([]);
     const [texto, setTexto] = useState("");
+    const [loading, setLoading] = useState(false);
     async function enviarMensaje() {
-        const mensajeUsuario = texto;
 
+
+        if (texto.trim() === "") {
+            return;
+
+        }
+        setLoading(true);
+
+        // el código de aquí solamente
+        // se ejecutará si hay texto
+
+        const mensajeUsuario = texto;
         setTexto("");
         const response = await fetch("http://127.0.0.1:8000/openrouter", {
             method: "POST",
@@ -34,7 +45,10 @@ function Chat() {
                 rol: "assistant"
             }
         ]);
+
+        setLoading(false);
     }
+
     console.log(Mensajes);
 
     return (
@@ -45,7 +59,8 @@ function Chat() {
             />
 
             < button onClick={enviarMensaje}>
-                enviar
+                {loading ? "Enviando..." : "Enviar"}
+
             </button >
 
             <div>

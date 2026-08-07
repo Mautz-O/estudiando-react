@@ -43,7 +43,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <h1>Oscarito buscando dragona en el depa del ismaelito</h1>
+        <h1 className="page-title">testeo de api de chat</h1>
         {children}
         <ScrollRestoration />
         <Scripts />

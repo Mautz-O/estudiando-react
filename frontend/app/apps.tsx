@@ -29,14 +29,18 @@ function Mensaje() {
     }
 
     return (
-        <div>
-
+        <div style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+            minHeight: "30vh",
+            gap: "12px"
+        }}>
             <p>{Mensaje}</p>
-
             <button onClick={cargarUsuario}>click</button>
-
         </div>
-
     )
 
 }
