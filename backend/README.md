@@ -6,9 +6,29 @@ Requisitos
 - Python 3.10+
 - `pip`
 
+Crear y activar entorno virtual
+```bash
+python -m venv .venv
+```
+
+En Git Bash / Windows:
+```bash
+source .venv/Scripts/activate
+```
+
+En PowerShell:
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+En Linux/macOS:
+```bash
+source .venv/bin/activate
+```
+
 Instalación rápida
 ```bash
-pip install fastapi uvicorn
+pip install -r requirements.txt
 ```
 
 Ejecutar en desarrollo
