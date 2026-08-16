@@ -1,6 +1,9 @@
 from fastapi import APIRouter, status
-from backend.schemas.chat import ChatCreate, ChatResponse
-from backend.services.chat import create_chat
+from schemas.chat import ChatCreate, ChatResponse
+from services.chat import create_chat
+
+
+
 
 
 router = APIRouter()

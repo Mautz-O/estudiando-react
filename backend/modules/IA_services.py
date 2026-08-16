@@ -3,9 +3,10 @@ from dotenv import load_dotenv
 import httpx
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI(title="OpenRouter Service")
+
+
+
 
 
 # Allow the frontend dev servers (Vite/CRA) to access the API
@@ -14,13 +15,7 @@ origins = [
     "http://localhost:8000",
 ]
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+
 
 class OpenRouterRequest(BaseModel):
     message: str
