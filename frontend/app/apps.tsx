@@ -42,7 +42,7 @@ function Mensaje() {
             <button
                 onClick={cargarUsuario}
                 style={{
-                    background: "linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)",
+                    background: "linear-gradient(135deg, #e5465b 0%, #ed3a3a 100%)",
                     color: "white",
                     border: "none",
                     borderRadius: "999px",
@@ -50,7 +50,7 @@ function Mensaje() {
                     fontSize: "1.05rem",
                     fontWeight: 700,
                     cursor: "pointer",
-                    boxShadow: "0 10px 25px rgba(79, 70, 229, 0.35)",
+                    boxShadow: "0 10px 25px rgba(70, 229, 91, 0.35)",
                     transition: "transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease",
                 }}
             >

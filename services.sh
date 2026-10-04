@@ -86,7 +86,7 @@ echo "Iniciando FastAPI..."
 
 pushd "$BACKEND_DIR" >/dev/null
 
-"$PYTHON_VENV" -m uvicorn modules.IA_services:app --reload --host 127.0.0.1 --port 8000 &
+"$PYTHON_VENV" -m uvicorn main:app --reload --host 127.0.0.1 --port 8000 &
 BACKEND_PID=$!
 
 popd >/dev/null

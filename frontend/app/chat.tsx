@@ -23,7 +23,7 @@ function Chat() {
 
         const mensajeUsuario = texto;
         setTexto("");
-        const response = await fetch("http://127.0.0.1:8000/openrouter", {
+        const response = await fetch("http://127.0.0.1:8000/chat/message", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -52,18 +52,28 @@ function Chat() {
     console.log(Mensajes);
 
     return (
-        <div>
+        <div
+            className="chat-container">
+
             <input
+                className="chat-input"
                 value={texto}
                 onChange={(e) => setTexto(e.target.value)}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                        enviarMensaje();
+                    }
+                }}
             />
 
-            < button onClick={enviarMensaje}>
+            <button
+                className="chat-button"
+                onClick={enviarMensaje}>
                 {loading ? "Enviando..." : "Enviar"}
 
             </button >
 
-            <div>
+            <div className="chat-messages">
                 {Mensajes.map((mensaje, index) => (
                     <p key={index}>
                         {mensaje.rol} : {mensaje.contenido}

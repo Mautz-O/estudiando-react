@@ -1,89 +1,49 @@
+
 import os
 from dotenv import load_dotenv
 import httpx
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from fastapi import HTTPException
 
-
-
-
-
-
-# Allow the frontend dev servers (Vite/CRA) to access the API
-origins = [
-    "http://localhost:5173",
-    "http://localhost:8000",
-]
-
-
-
-class OpenRouterRequest(BaseModel):
-    message: str
-    #api_key: str | None = None
-    model: str = "openai/gpt-4o-mini"
 
 load_dotenv()
 
-def conectar_openrouter(message: str, api_key: str | None = None, model: str = "openai/gpt-4o-mini"):
-    api_key = api_key or os.getenv("OPENROUTER_API_KEY")
-    print("API KEY cargada:", bool(api_key))
-    print("API KEY cargada:", bool(api_key))
-    print("Longitud:", len(api_key) if api_key else 0)
-    print("Header creado:", bool(f"Bearer {api_key}"))
-    if not api_key:
-        raise HTTPException(status_code=400, detail="Falta la API key de OpenRouter.")
-        
-    url = "https://openrouter.ai/api/v1/chat/completions"
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json",
-        "HTTP-Referer": "http://localhost:5173",
-        "X-Title": "My React Router App",
-    }
-    payload = {
-        "model": model,
-        "messages": [
-            {"role": "user", "content": message}
-        ],
-        "stream": True
-    }
-    print("Header creado:", bool(headers["Authorization"]))
-    print("Directorio actual:", os.getcwd())
-    print("API key desde entorno:", bool(os.getenv("OPENROUTER_API_KEY")))
-   
 
 def conectar_openrouter(
     message: str,
     model: str = "openrouter/free"
 ):
+
+    # Obtener API key desde variables de entorno
     api_key = os.getenv("OPENROUTER_API_KEY")
 
+    # Validar que la API key esté disponible
     if not api_key:
         raise HTTPException(
             status_code=400,
             detail="Falta la API key de OpenRouter."
         )
 
-    print("API KEY cargada:", bool(api_key))
-    print("Longitud:", len(api_key))
-
+    # URL del endpoint de chat completions de OpenRouter
     url = "https://openrouter.ai/api/v1/chat/completions"
 
+    # Headers para autenticación y configuración de la solicitud
     headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json",
-        "HTTP-Referer": "http://localhost:5173",
-        "X-Title": "My React Router App",
+        "Authorization": f"Bearer {api_key}",  # Token de autenticación
+        "Content-Type": "application/json",     # Tipo de contenido
+        "HTTP-Referer": "http://localhost:5173",  # Referencia del cliente (frontend)
+        "X-Title": "My React Router App",       # Título de la aplicación
     }
 
+    # Payload (cuerpo) de la solicitud
     payload = {
-        "model": model,
+        "model": model,  # Modelo de IA a utilizar
         "messages": [
-            {"role": "user", "content": message}
+            {"role": "user", "content": message}  # Mensaje del usuario
         ],
     }
 
     try:
+        # Realizar solicitud POST a OpenRouter con timeout de 60 segundos
         response = httpx.post(
             url,
             headers=headers,
@@ -91,37 +51,35 @@ def conectar_openrouter(
             timeout=60.0
         )
 
+        # Lanzar excepción si el status HTTP indica error (4xx, 5xx)
         response.raise_for_status()
 
+        # Parsear respuesta JSON
         data = response.json()
+        # Extraer el contenido de la primera opción de respuesta
         answer = data["choices"][0]["message"]["content"]
 
+        # Retornar respuesta con modelo utilizado
         return {
             "answer": answer,
             "model": model
         }
 
     except httpx.HTTPStatusError as exc:
+        # Manejar errores HTTP específicos
         raise HTTPException(
             status_code=exc.response.status_code,
             detail=exc.response.text
         ) from exc
 
     except Exception as exc:
+        # Manejar otros errores inesperados
         raise HTTPException(
             status_code=500,
             detail=str(exc)
         ) from exc
 
-@app.post("/openrouter")
-def openrouter_endpoint(request: OpenRouterRequest):
-    return conectar_openrouter(
-        message=request.message,
-        #api_key=request.api_key,
-        model=request.model,
-    )
+
+    
 
 
-@app.get("/health")
-def health():
-    return {"status": "ok"}
