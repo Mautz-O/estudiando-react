@@ -1,0 +1,53 @@
+services:
+  # Aplicacion React Router/Vite para desarrollo con recarga de cambios.
+  frontend:
+    container_name: react-frontend
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    working_dir: /app
+    ports:
+      - "5173:5173"
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+      VITE_API_URL: http://localhost:8000
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 5173"
+    volumes:
+      - ..:/app
+      - /app/node_modules
+    restart: unless-stopped
+
+  # API FastAPI que conecta la aplicacion con MongoDB.
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+
+    volumes:
+      - ../backend:/app
+
+    ports:
+      - "8000:8000"
+
+    environment:
+      MONGO_URI: mongodb://mongo:27017
+      MONGO_DB: appdb
+    command: sh -c "pip install --no-cache-dir -r requirements.txt && uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+    depends_on:
+      - mongo
+    restart: unless-stopped
+
+  # Base de datos MongoDB con persistencia en el volumen mongo_data.
+  mongo:
+    container_name: mongo-local
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: appdb
+    volumes:
+      - mongo_data:/data/db
+    restart: unless-stopped
+
+volumes:
+  mongo_data:

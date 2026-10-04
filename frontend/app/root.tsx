@@ -7,13 +7,13 @@ import {
   ScrollRestoration,
 
 } from "react-router";
-import Mensaje from "./apps";
+import Chat from "./chat";
 import type { Route } from "./+types/root";
 import "./app.css";
 
 
 export default function App() {
-  return <Mensaje />;
+  return <Chat />;
 }
 
 export const links: Route.LinksFunction = () => [
@@ -35,7 +35,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
-        <title>Oscarito buscando dragona en el depa del ismaelito</title>
+        <title>TEST API</title>
 
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -43,7 +43,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <h1>Oscarito buscando dragona en el depa del ismaelito</h1>
+        <h1 className="page-title">testeo de api de chat</h1>
         {children}
         <ScrollRestoration />
         <Scripts />
